@@ -1,0 +1,24 @@
+using Robust.Shared.Random;
+using Content.Server.DoAfter;
+using Content.Shared.Interaction.Events;
+using Content.Shared.Hands.Components;
+
+namespace Content.Server.Pathogens
+{
+    public sealed partial class PathogensSystem : EntitySystem
+    {
+        [Dependency] private readonly IRobustRandom _random = default!;
+        [Dependency] private readonly DoAfterSystem _doAfterSystem = default!;
+
+        public override void Initialize()
+        {
+            SubscribeLocalEvent<HandsComponent, ContactInteractionEvent>(OnInteract);
+        }
+
+        private void OnInteract(EntityUid user, HandsComponent component, ContactInteractionEvent args)
+        {
+            var target = args.Other;
+            var reservoir = EnsureComp<PathogenReservoirComponent>(target);
+        }
+    }
+}

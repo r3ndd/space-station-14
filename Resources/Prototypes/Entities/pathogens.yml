@@ -1,0 +1,13 @@
+- type: entity
+  id: BasePathogen
+  name: "pathogen"
+  abstract: true
+  components:
+  - Transmissible
+
+- type: entity
+  parent: BasePathogen
+  id: Virus
+  name: "virus"
+  components:
+  - ViralGenome
